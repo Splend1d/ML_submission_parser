@@ -10,4 +10,4 @@
 
 The 'strong_submissions' folder contains all the student's submission that passes the strong baseline, the folders are ordered by ranking
 
-The 'strongs.pdf' file is the concatenation of all the submitted reports, ordered by ranking.
+The 'strong.pdf' file is the concatenation of all the submitted reports, ordered by ranking.
