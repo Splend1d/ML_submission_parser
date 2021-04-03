@@ -58,7 +58,7 @@ for n,(score, ID) in enumerate(rank):
 		#s()
 		for r,d,fs in os.walk(os.path.join("unzipped_submissions",id2submission[ID])):
 			for f in fs:
-				if (f.endswith(".doc") or f.endswith(".docx") or f.endswith(".odt") or f.endswith(".md")) and not f.startswith(".") and not f.startswith("~"):
+				if (f.endswith(".doc") or f.endswith(".docx") or f.endswith(".odt")or f.endswith(".rft")) and not f.startswith(".") and not f.startswith("~"):
 					f_with_dir = os.path.join(r, f)
 					doc2pdf_linux(f_with_dir)
 					print(f_with_dir)
