@@ -1,4 +1,4 @@
-# Parser for ML
+# ML submission parser
 1. go to NTUCOOL to download all submissions, paste to this directory, and rename the folder as 'submissions'
 2. go to FB group to download 'student_list_grade.csv', and paste to this directory
 3. write data to two columns in the csv : 'strong' and 'ranking', 'strong' is 1 if the student passes the strong baseline, 'strong' is 0 other
