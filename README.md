@@ -4,7 +4,10 @@
 3. write data to two columns in the csv : 'strong' and 'ranking', 'strong' is 1 if the student passes the strong baseline, 'strong' is 0 other
 4. (Optional) Write data to the 'ranking', the output pdf order will be affected by this, default : lower ranking score is better.
 
-3. execute unzip_data.sh
+5. execute unzip_data.sh
 
-4. execute parse_strong.py(on linux) If the ranking is reversed, change line 21 to '''rank = sorted(rank, reverse = True)'''
+6. execute parse_strong.py(on linux) If the ranking is reversed, change line 21 to '''rank = sorted(rank, reverse = True)'''
 
+The 'strong_submissions' folder contains all the student's submission that passes the strong baseline, the folders are ordered by ranking
+
+The 'strongs.pdf' file is the concatenation of all the submitted reports, ordered by ranking.
