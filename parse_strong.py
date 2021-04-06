@@ -1,9 +1,10 @@
 import glob
 import os
 import pandas as pd
-from myPyPDF import PdfFileWriter
-from myPyPDF import PdfFileMerger
-from myPyPDF import PdfFileReader
+#from myPyPDF import PdfFileWriter
+#from myPyPDF import PdfFileMerger
+#from myPyPDF import PdfFileReader
+from pikepdf import Pdf
 from docx2pdf import convert
 df = pd.read_csv("./student_list_grade.csv")
 worst_value = 100 # change if larger is better
@@ -42,8 +43,9 @@ def doc2pdf_linux(doc):
 		raise subprocess.SubprocessError(stderr)
 
 
-strong_reports = PdfFileMerger(strict=False)
-pdfWriter = PdfFileWriter()
+#strong_reports = PdfFileMerger(strict=False)
+#pdfWriter = PdfFileWriter()
+strong_reports = Pdf.new()
 report = []
 no_report = []
 cur = 0
@@ -69,7 +71,7 @@ for n,(score, ID) in enumerate(rank):
 				if (f.endswith(".pdf")) and not f.startswith("."):
 					#report.append(os.path.join(r, f))
 					f_with_dir = os.path.join(r, f)
-					
+					print("found pdf",f_with_dir)
 					# try:
 					# 	test_reports.append(f_with_dir)
 					# 	test_reports.write("test.pdf")
@@ -78,7 +80,8 @@ for n,(score, ID) in enumerate(rank):
 						#continue
 					#with open(f_with_dir,'rb') as pdf:
 					#strong_reports.append(PdfFileReader(pdf))
-					strong_reports.append(f_with_dir)
+					#strong_reports.append(f_with_dir)
+					strong_reports.pages.extend(Pdf.open(f_with_dir).pages)
 					
 					gotten = True
 					cur += 1
@@ -92,7 +95,7 @@ for n,(score, ID) in enumerate(rank):
 		no_report.append(ID)
 	else:
 		report.append(ID)
-strong_reports.write("strong.pdf")
+strong_reports.save("strong.pdf")
 print("strong and submitted",len(rank))
 print("no report",len(no_report),no_report)
 print("with report",len(report),report)
