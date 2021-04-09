@@ -53,7 +53,7 @@ for n,(score, ID) in enumerate(rank):
 	ID = str(ID)
 	gotten = False
 	if ID in id2submission:
-		out_dir_name = f'{str(n).zfill(4)}_{"_".join(id2submission[ID].split("_")[:2])}'+".zip"
+		out_dir_name = f'{str(n+1).zfill(4)}_{"_".join(id2submission[ID].split("_")[:2])}'+".zip"
 		cmd = f'cp -R {os.path.join("./submissions",id2submission[ID])} {os.path.join("./strong_submissions",out_dir_name)}'.split()
 		p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 		p.wait(timeout=10)
