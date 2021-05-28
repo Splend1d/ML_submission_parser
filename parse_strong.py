@@ -14,7 +14,7 @@ df["ranking"] = df["ranking"].fillna(worst_value)
 df["ranking"] = df["ranking"].replace(to_replace ="nan",
 				 value =worst_value)
 strong_baseline = 0
-df.to_csv("./student_list_grade.csv",index = False)
+df.to_csv("./student_list_grade_out.csv",index = False)
 rank = []
 for ID, pass_strong, ranking in zip(df["ID"],df["strong"],df["ranking"]):
 	if pass_strong == 1:
@@ -22,11 +22,15 @@ for ID, pass_strong, ranking in zip(df["ID"],df["strong"],df["ranking"]):
 rank = sorted(rank)
 #print(rank,len(rank))
 id2submission = {}
+id2name = {}
 submissions = os.listdir("unzipped_submissions")
 for s in submissions:
 	ID  = s.split("_")[1]
 	id2submission[ID] = s
-#print(id2submission)
+for name_, id_  in zip(df["Student"],df["ID"]):
+	name_ = "".join(name_.split("(")[0].strip().split(" "))
+	id_ = str(id_)
+	id2name[id_] = name_
 
 import subprocess
 
@@ -53,7 +57,9 @@ for n,(score, ID) in enumerate(rank):
 	ID = str(ID)
 	gotten = False
 	if ID in id2submission:
-		out_dir_name = f'{str(n+1).zfill(4)}_{"_".join(id2submission[ID].split("_")[:2])}'+".zip"
+		sub = id2submission[ID].split("_")[:2]
+		sub[0] = sub[0][:len(id2name[ID])]
+		out_dir_name = f'{str(n+1).zfill(4)}_{"_".join(sub)}'+".zip"
 		cmd = f'cp -R {os.path.join("./submissions",id2submission[ID])} {os.path.join("./strong_submissions",out_dir_name)}'.split()
 		p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 		p.wait(timeout=10)
